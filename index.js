@@ -78,8 +78,7 @@ const mailConstructor = () => {
     let centerList = ``
 
     for (const center of utils.availableAppointmentCenter) {
-      centerList = centerList + `
-            <div>
+      centerList = centerList + ` 
                 <h2>${center.nom}</h2>
                 <a href=${center.url}>lien de prise de rdv</a>
                 <div>
@@ -88,7 +87,7 @@ const mailConstructor = () => {
                     <p>${center.city}</p>
                     <p>${center.cp}</p>
                 </div>
-                <div>${center.vaccin}</div>
+                <div>Vaccin: ${center.vaccin}</div>
                 <div>
                     <h3>Rendez-vous</h3>
                     <p>${center.appointment.name}</p>
