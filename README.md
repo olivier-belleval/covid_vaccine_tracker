@@ -13,3 +13,5 @@ change the department number on `getRequest(31)`
 if you dont want log if no appointment comment line 118
 
 remane .env.sample in .env and set the value
+
+``npm run start``

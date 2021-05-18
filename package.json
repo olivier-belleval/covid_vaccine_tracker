@@ -8,5 +8,8 @@
     "dotenv": "^9.0.2",
     "emailjs": "^3.4.0",
     "request-promise": "^4.2.6"
+  },
+  "scripts": {
+    "start": "node index.js"
   }
 }

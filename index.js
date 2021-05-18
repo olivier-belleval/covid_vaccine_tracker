@@ -118,5 +118,5 @@ const mailConstructor = () => {
   }
 }
 
-getRequest(93) // single launch
+getRequest(31) // single launch
 //setInterval(function(){ getRequest(31); }, 600*1000)  // infinite loop 600*1000 = 10 min
