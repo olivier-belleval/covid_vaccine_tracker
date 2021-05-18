@@ -3,15 +3,18 @@
  */
 require('dotenv').config()
 const https = require('https')
-const moment = require('moment')
+const moment = require('moment')// Load the module
+
 
 /**
  * Import local
  */
 const mailSender  = require('./mailSender');
+const sendNotification  = require('./pushover');
 
 const utils = {
   availableAppointmentCenter: [],
+  availableCenter: {},
 }
 /**
  * Make a request on https://vitemadose.gitlab.io API
@@ -42,7 +45,7 @@ const getRequest = (department) => {
 
             if (appointment.total > 0) {
               console.log('')
-              const availableCenter = {
+              utils.availableCenter = {
                 "nom": center.nom,
                 "url": center.url,
                 "address": center.metadata.address,
@@ -56,13 +59,19 @@ const getRequest = (department) => {
                   "total": appointment.total
                 },
               }
-              utils.availableAppointmentCenter.push(availableCenter)
+              sendNotification('rendez-vous disponible', center.nom, center.url)
+              utils.availableAppointmentCenter.push(utils.availableCenter)
 
             }
           }
         }
       }
-      mailConstructor()
+      if (utils.availableAppointmentCenter.length > 0) {
+        mailConstructor()
+      } else {
+        const time = moment().format('DD MMMM YYYY, h:mm:ss a')
+        console.log(`${time}: no appointment available`)
+      }
     });
 
   }).on("error", (err) => {
@@ -74,7 +83,6 @@ const getRequest = (department) => {
  * Build mail content and send it
  */
 const mailConstructor = () => {
-  if (utils.availableAppointmentCenter.length > 0) {
     let centerList = ``
 
     for (const center of utils.availableAppointmentCenter) {
@@ -111,10 +119,7 @@ const mailConstructor = () => {
       }
     ]
     mailSender(process.env.MAILTO, 'rendez-vous disponible', attachments)
-  } else {
-    const time = moment().format('DD MMMM YYYY, h:mm:ss a')
-    console.log(`${time}: no appointment available`)
-  }
+
 }
 
 getRequest(31) // single launch
