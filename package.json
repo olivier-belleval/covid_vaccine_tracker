@@ -1,0 +1,12 @@
+{
+  "name": "covid_vaccine_tracker",
+  "version": "1.0.0",
+  "dependencies": {
+    "moment": "^2.29.1"
+  },
+  "devDependencies": {
+    "dotenv": "^9.0.2",
+    "emailjs": "^3.4.0",
+    "request-promise": "^4.2.6"
+  }
+}
